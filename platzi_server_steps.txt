@@ -1,0 +1,37 @@
+Server provider. BLue Ocean - Droplets
+update apt
+install nginx
+validate python is installed
+install or validate nodejs is installed
+instal npm
+install with npm  the pack pm2 to run the app as a process
+clone repo in the Server
+inside the application create a virtual env  with python venv
+activate the virtual environment
+Install the project requirements
+-------Ejecucuón
+Execute the app locally and network --host 0.0.0.0
+
+now with pm2
+command: pm2 start "normal command to start with uvicorn" --name my-movie-api
+Now with ngnx we are going to change the url, so it does not need the port in order to load the api
+create a new file in this path:
+    nano /etc/nginx/sites-available/my-movie-api
+
+in the file:
+    server {
+        listen 80;
+        server_name <ip_address>;
+
+        location / {
+            proxy_pass http://127.0.0.1:5000;
+        }
+
+    }
+
+now copy this file to the path /etc/nginx/sites-enabled/
+
+
+Check ngnx satatus:  systemctl status nginx
+
+Restart nginx:  systemctl restart nginx
